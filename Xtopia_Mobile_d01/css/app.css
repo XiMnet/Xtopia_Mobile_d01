@@ -1,0 +1,9 @@
+.content{padding: 15px}
+
+.km-drawer-button:before, .km-drawer-button:after  { content: "\E077"; }
+
+/*class to hide back button on homepage*/
+#device-wrapper [href='#/'], #back-button, .back-button
+{
+    visibility: hidden;
+}
