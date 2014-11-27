@@ -17,6 +17,21 @@ var app_config = kendo.observable({
     emulatorMode: true,
     // END OF PUSH NOTIFICATION SETTING
 
+    //START OF SETTING FOR ADVERTISEMENT
+    // go to www.admob.com, sign up, create your app (one for each platform) and change the keys below
+
+    //advertisement - Banner Type
+    admob_banner_ios_key: "ca-app-pub-9394298980021684/8820428654",
+    admob_banner_android_key: "ca-app-pub-9394298980021684/6837494654",
+    //admob_banner_wp8_key: "", // future support
+
+    //advertisement - Interstitial View Type // an advertisement that appears while a chosen website or page is downloading.
+    admob_interstitial_ios_key: "ca-app-pub-9394298980021684/7005618254",
+    admob_interstitial_android_key: "ca-app-pub-9394298980021684/5528885057",
+    //admob_interstitial_wp8_key: "", // future support
+
+    //END OF SETTING FOR ADVERTISEMENT
+    
     fn_init: function (e) {
 
         //TODO: get setting from database

@@ -15,9 +15,6 @@ var _food_photo_width = 1024; //resize food photo to this width
 var _food_photo_height = 1024; //resize food photo to this height
 var _food_photo_quality = 80; //compress food photo to this quality
 
-function localStorageApp() {
-}
-
 
 var appMS = kendo.observable({
     fn_init: function (e) {
@@ -40,11 +37,12 @@ var appMS = kendo.observable({
             });
 
             //set up a test device object when in web browser
-            mobileMS.device_uuid = '001';
-            mobileMS.device_name = 'Name Test 1';
-            mobileMS.device_phonegap = 'Phonegap Test 1';
-            mobileMS.device_platform = 'Platform Test 1';
-            mobileMS.device_version = 'Version Test 1';
+            var str_test_string = '13-11a';
+            mobileMS.device_uuid = 'test ' + str_test_string;
+            mobileMS.device_name = 'Name test ' + str_test_string;
+            mobileMS.device_phonegap = 'Phonegap test ' + str_test_string;
+            mobileMS.device_platform = 'Platform test ' + str_test_string;
+            mobileMS.device_version = 'Version test ' + str_test_string;
 
             //all functions to call when starting apps
             appMS.fn_start_all();
@@ -64,9 +62,8 @@ var appMS = kendo.observable({
             //localStorage.setItem(name, value);
             //localStorage.removeItem(name)
             //localStorage.getItem(name);
-            localStorageApp = new localStorageApp();
-            localStorageApp.run();
-
+            //localStorage.clear()
+          
             kendo_app = new kendo.mobile.Application(document.body, {
 
                 // comment out the following line to get a UI which matches the look

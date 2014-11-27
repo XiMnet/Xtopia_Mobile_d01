@@ -36,6 +36,9 @@
             localStorage.setItem("user_last_name", json[0].user_last_name);
             localStorage.setItem("login_datetime", $.formatDateTime('yy/mm/dd g:ii a', new Date()));
 
+            //update the device information
+            mobileMS.fn_mobileMS_update();
+
             XiMnet_JS_Tool.fn_show_msg("Login successful.");
 
         }

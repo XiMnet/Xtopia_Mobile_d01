@@ -8,6 +8,11 @@ var mobileMS = kendo.observable({
                                     device_version: 'device.version',
                                     fn_mobileMS_update: function(e) {
                                         
+                                        var user_id = 0;
+                                        if (localStorage.getItem("user_id") !== null) {
+                                            user_id = localStorage.getItem("user_id")
+                                        }
+
                                         XiMnet_JS_Tool.fn_XiMnet_ajax('mobileMS.ashx', {
 
                                             device_uuid: mobileMS.device_uuid,
@@ -17,6 +22,7 @@ var mobileMS = kendo.observable({
                                             device_version: mobileMS.device_version,
                                             latest_lat: mobileMS.latest_lat,
                                             latest_lng: mobileMS.latest_lng,
+                                            user_id: user_id,
                                             process_type: 'ADD_DEVICE'
 
                                         }, "mobileMS", "fn_mobileMS_update")
