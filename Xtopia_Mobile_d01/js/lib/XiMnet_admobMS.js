@@ -61,7 +61,7 @@ var XiMnet_admobMS = kendo.observable({
 
     fn_show_interstitial_view: function () {
         
-      
+          alert("interstitial");
         
         if (this.fn_check_simulator()) {
             return;
