@@ -1,4 +1,4 @@
-var XiMnet_admobMS = kendo.observable({
+﻿var XiMnet_admobMS = kendo.observable({
 
     fn_init: function (e) {
 
@@ -21,9 +21,9 @@ var XiMnet_admobMS = kendo.observable({
     },
 
     fn_show_banner: function (bannerPosition, bannerType) {
-      
-        var admob_ios_key = app_config.admob_banner_ios_key;
-        var admob_android_key = app_config.admob_banner_android_key;
+
+        var admob_ios_key = app_config.str_admob_banner_ios_key;
+        var admob_android_key = app_config.str_admob_banner_android_key;
         // var admob_wp8_key = 'ca-app-pub-9517346003011652/2695027726'; // future work
 
         var adMobKey = (navigator.userAgent.indexOf('Android') >= 0) ? admob_android_key : admob_ios_key;
@@ -60,21 +60,16 @@ var XiMnet_admobMS = kendo.observable({
     },
 
     fn_show_interstitial_view: function () {
-        
-          alert("interstitial");
-        
         if (this.fn_check_simulator()) {
             return;
         }
 
-        var admob_ios_key = app_config.admob_interstitial_ios_key;
-        var admob_android_key = app_config.admob_interstitial_android_key;
+        var admob_ios_key = app_config.str_admob_interstitial_ios_key;
+        var admob_android_key = app_config.str_admob_interstitial_android_key;
         // var admob_wp8_key = 'ca-app-pub-9517346003011652/2695027726'; // future work
 
         var adMobKey = (navigator.userAgent.indexOf('Android') >= 0) ? admob_android_key : admob_ios_key;
 
-          alert(adMobKey);
-        
         window.plugins.AdMob.createInterstitialView(
             // createInterstitialView params
             {
@@ -87,15 +82,15 @@ var XiMnet_admobMS = kendo.observable({
                     { 'isTesting': false },
                     // requestInterstitialAd  success callback
                     function () {
-                        
-                      window.plugins.AdMob.showAd(
-                          // showAd params
-                          true,
-                          // showAd success callback
-                          function() {alert('show ok')},
-                          // showAd error callback
-                          function() { alert('failed to show ad')});
-                          
+
+                        window.plugins.AdMob.showAd(
+                            // showAd params
+                            true,
+                            // showAd success callback
+                            function () { console.log('show ok') },
+                            // showAd error callback
+                            function () { alert('failed to show ad') });
+
                     },
                     // requestInterstitialAd  error callback
                     function () { alert('failed to request ad'); }

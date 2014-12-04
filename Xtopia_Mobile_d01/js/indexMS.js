@@ -11,6 +11,8 @@ var indexMS = kendo.observable({
         alert("user email " + localStorage.getItem("user_email"));
         alert("user full name " + localStorage.getItem("user_first_name") + " " + localStorage.getItem("user_middle_name") + localStorage.getItem("user_last_name"));
 
+        
+        
     },
     fn_clear_localstorage: function () {
         localStorage.clear();

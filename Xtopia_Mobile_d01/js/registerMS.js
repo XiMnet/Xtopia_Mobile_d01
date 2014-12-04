@@ -1,4 +1,4 @@
-﻿var registerMS = kendo.observable({
+var registerMS = kendo.observable({
     form_validator:'',
     fn_register_user: function (e) {
 
@@ -11,7 +11,7 @@
         var str_hashed_user_password = hex_md5($('#user_password').val() + $('#user_email').val());
 
         //register the user
-        var str_result = XiMnet_JS_Tool.fn_XiMnet_ajax('mobileMS.ashx', {
+        var str_result = XiMnet_JS_Tool.fn_XiMnet_ajax_JSONP('mobileMS.ashx', {
 
             user_first_name: $('#user_first_name').val(),
             user_last_name: $('#user_last_name').val(),
@@ -20,14 +20,16 @@
             user_added_by: 'own_register',
             process_type: 'ADD_USER'
             
-        }, "mobileMS", "fn_mobileMS_update")
+        }, "mobileMS", "fn_register_user")
+        
+         console.log("registerMS" + str_result);
 
         if (str_result.indexOf("Email exist in the system") !== -1)
         { XiMnet_JS_Tool.fn_show_msg("Email address is already registered. Please try with a different email or login."); }
         else {
             XiMnet_JS_Tool.fn_show_msg("Register successful.");
         }
-        
+
     },
     fn_init: function (e) {
          

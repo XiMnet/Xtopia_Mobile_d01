@@ -18,7 +18,7 @@ var app_config = kendo.observable({
     str_android_project_number: "650583620288",
 
     //Set this to true in order to test push notifications in the emulator. Note, that you will not be able to actually receive push notifications because we will generate fake push tokens. But you will be able to test your other push-related functionality without getting errors.
-    bool_emulator_mode: false,
+    bool_emulator_mode: true,
     // END OF PUSH NOTIFICATION SETTING
 
     //START OF SETTING FOR ADVERTISEMENT

@@ -1,4 +1,4 @@
-﻿//For handing Push Notification to devices
+//For handing Push Notification to devices
 // URL: http://docs.telerik.com/platform/appbuilder/sample-apps/sample-backend-services-pushnotifications
 
 // 1. Get Google API Key & Android Project Number
@@ -16,22 +16,22 @@ var XiMnet_PushNotification = kendo.observable({
 
         // START PUSH NOTIFICATION 
         //This is your Telerik BackEnd Services API key.
-        var baasApiKey = XiMnet_PushNotification.telerik_backend_services_API;
+        var baasApiKey = app_config.str_telerik_backend_services_API;
 
         //This is the scheme (http or https) to use for accessing Telerik BackEnd Services.
         var baasScheme = 'http';
 
         //This is your Android project number. It is required by Google in order to enable push notifications for your app. You do not need it for iPhone.
-        var androidProjectNumber = XiMnet_PushNotification.androidProjectNumber;
+        var str_android_project_number = app_config.str_android_project_number;
 
-        var emulatorMode = app_config.emulatorMode;
+        var bool_emulator_mode = app_config.bool_emulator_mode;
 
         //Initialize the Telerik BackEnd Services SDK
         var el = new Everlive({
             apiKey: baasApiKey,
             scheme: baasScheme
         });
-
+        
         var _onDeviceIsRegistered = function () {
             XiMnetJS_Tool.fn_log("Device is registered in Telerik BackEnd Services and can receive push notifications.");
             updateRegistration();
@@ -63,7 +63,7 @@ var XiMnet_PushNotification = kendo.observable({
             //Initialization settings
             var pushSettings = {
                 android: {
-                    senderID: androidProjectNumber
+                    senderID: str_android_project_number
                 },
                 iOS: {
                     badge: "true",
@@ -77,7 +77,7 @@ var XiMnet_PushNotification = kendo.observable({
             //    //$("#initializeButton").hide();
             XiMnet_JS_Tool.fn_log("Initializing push notifications...");
 
-            var currentDevice = el.push.currentDevice(emulatorMode);
+            var currentDevice = el.push.currentDevice(bool_emulator_mode);
 
             currentDevice.enableNotifications(pushSettings)
                 .then(
@@ -115,7 +115,7 @@ var XiMnet_PushNotification = kendo.observable({
 
             if (!currentDevice.pushToken) currentDevice.pushToken = "some token";
             el.push.currentDevice()
-                .register({ Age: 15, emulatorMode: emulatorMode, device_uuid: device.uuid })
+                .register({ Age: 15, bool_emulator_mode: bool_emulator_mode, device_uuid: device.uuid })
                 .then(
                     _onDeviceIsRegistered,
                     function (err) {

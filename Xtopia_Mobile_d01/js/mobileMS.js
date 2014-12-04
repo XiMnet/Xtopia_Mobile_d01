@@ -13,7 +13,7 @@ var mobileMS = kendo.observable({
                                             user_id = localStorage.getItem("user_id")
                                         }
 
-                                        XiMnet_JS_Tool.fn_XiMnet_ajax('mobileMS.ashx', {
+                                        var str_result = XiMnet_JS_Tool.fn_XiMnet_ajax_JSONP('mobileMS.ashx', {
 
                                             device_uuid: mobileMS.device_uuid,
                                             device_name: mobileMS.device_name,
@@ -26,7 +26,9 @@ var mobileMS = kendo.observable({
                                             process_type: 'ADD_DEVICE'
 
                                         }, "mobileMS", "fn_mobileMS_update")
-
+                                        
+                                        console.log("mobileMS");
+                                        
                                     }
                                       
                                 });

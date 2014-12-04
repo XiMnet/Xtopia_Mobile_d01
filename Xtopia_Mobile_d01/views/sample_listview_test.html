@@ -1,11 +1,10 @@
-﻿<div data-role="view" data-title="Sample - List View" 
+﻿<div data-role="view" data-title="Sample - List View"
      data-layout="main"
-     data-model="sample_listviewMS"
-     data-bind="events: { init: fn_init }"
-     id="sample_listviewMS">
+     data-init="fn_init"
+     id="sample_listview_testMS">
 
     <style>
-        #sample_listviewMS .delete {
+        #sample_listview_testMS .delete {
             display: none;
             position: absolute;
             top: .15em;
@@ -15,6 +14,8 @@
             color: #fff;
         }
     </style>
+
+
 
     <h2>Total Messages: <span id="total-message"></span></h2>
 

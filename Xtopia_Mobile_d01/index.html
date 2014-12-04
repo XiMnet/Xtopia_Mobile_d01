@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title></title>
@@ -34,7 +34,7 @@
     <script src="js/mobileMS.js"></script>
     <script src="js/registerMS.js"></script>
     <script src="js/settingMS.js"></script>
-
+   
     <!--START - standard components-->
     <!--Push Notification--depends on Telerik Backed Services>-->
     <script src="js/lib/XiMnet_PushNotification.js"></script>
@@ -45,7 +45,9 @@
     <!--END - standard components-->
     <!--Samples-->
     <script src="js/sample_listviewMS.js"></script>
+    <script src="js/testMS.js"></script>
 
+    <script src="js/sample_listview_testMS.js"></script>
     <script src="js/app.js"></script>
 
 </head>
@@ -65,6 +67,8 @@
             <a data-role="button" id="btnLogin" href="views/login.html">Login</a>
 
             <a data-role="button" href="views/register.html">Register</a>
+
+            <a href="views/test.html" data-role="button">test redirect</a>
 
             <a href="#" data-role="button" data-bind="click: fn_test">test</a>
             <a href="#" data-role="button" data-bind="click: fn_clear_localstorage">clear localsotrage</a>
@@ -114,7 +118,10 @@
                 <a href="views/sample_listview.html">Sample - List View</a>
             </li>
 
-
+            <li>
+                <a href="views/sample_listview_test.html">Sample List View - Test</a>
+            </li>
+            
         </ul>
     </div>
 </body>

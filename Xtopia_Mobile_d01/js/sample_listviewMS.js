@@ -1,70 +1,116 @@
-﻿var sample_listviewMS = kendo.observable({
+﻿// HUISHENG 2/12/2014:
+
+var sample_listviewMS = kendo.observable({
+    Kendo_DataSource: null,
     fn_init: function (e) {
-
-
-        'http://develop.alchemedia-01.ximnet.my/XTOPIA/dev/xtopia_platform_d02/api/mobilems.ashx?callback=jQuery19106814467927906662_1416811474437&user_email=a&user_password=b&process_type=sample_JSONP&skip=0&page=1&pageSize=2&_=1416811474438'
-
-        var dataSource = new kendo.data.DataSource({
+        sample_listviewMS.Kendo_DataSource = new kendo.data.DataSource({
             transport: {
                 read: {
-                    url: "http://develop.alchemedia-01.ximnet.my/XTOPIA/dev/xtopia_platform_d02/api/mobilems.ashx",
+                    url: app_config.str_project_url + "mobilems.ashx",
                     dataType: "jsonp",
                     data: {
-
+                        project_id: app_config.str_project_id,
+                        //user_id: localStorage.getItem("user_id"),
                         process_type: 'LIST_INBOX_BY_USER_ID'
-
-                    }
+                    },
+                    async: false
                 }
             },
             schema: {
-                total: function () { return 2; }
+                total: function () {
+                    $("#total-message").html(100);
+                    return 100;
+                    //var int_inbox_cnt;
+                    //int_inbox_cnt = XiMnet_JS_Tool.fn_XiMnet_ajax_JSONP('mobileMS.ashx', {
+
+                    //    project_id: app_config.str_project_id,
+                    //    //user_id: localStorage.getItem("user_id"),
+                    //    process_type: 'COUNT_INBOX_BY_USER_ID'
+
+                    //}, "sample_listviewMS", "fn_init");
+
+                    //$("#total-message").html(int_inbox_cnt[0].cnt_inbox);
+                    //return int_inbox_cnt[0].cnt_inbox;
+
+                } 
             },
             serverPaging: true,
-            pageSize: 2
+            pageSize: 20
         });
 
-        $("#pull-to-refresh-listview").kendoMobileListView({
-            dataSource: dataSource,
+        $("#sample-listview").kendoMobileListView({
+            dataSource: sample_listviewMS.Kendo_DataSource,
+            template: $("#sample-listview-template").text(),
             pullToRefresh: true,
-            pullToRefresh: true,
-            template: $("#pull-to-refresh-template").text()
-        });
-
-
-       // var groupedData = [
-       //{ name: "Sashimi salad", letter: "S" },
-       //{ name: "Chirashi sushi", letter: "C" },
-       //{ name: "Seaweed salad", letter: "S" },
-       //{ name: "Edamame", letter: "E" },
-       //{ name: "Miso soup", letter: "M" },
-       //{ name: "Maguro", letter: "M" },
-       //{ name: "Shake", letter: "S" },
-       //{ name: "Shiromi", letter: "S" },
-       //{ name: "Tekka maki", letter: "T" },
-       //{ name: "Hosomaki Mix", letter: "H" },
-       //{ name: "California rolls", letter: "C" },
-       //{ name: "Seattle rolls", letter: "S" },
-       //{ name: "Spicy Tuna rolls", letter: "S" },
-       //{ name: "Ebi rolls", letter: "E" },
-       //{ name: "Chicken Teriyaki", letter: "C" },
-       //{ name: "Salmon Teriyaki", letter: "S" },
-       //{ name: "Gohan", letter: "G" },
-       //{ name: "Tori Katsu", letter: "T" },
-       //{ name: "Yaki Udon", letter: "Y" }
-       // ];
-
-
-       // var flatData = ["Sashimi salad", "Chirashi sushi", "Seaweed salad", "Edamame", "Miso soup", "Maguro", "Shake", "Shiromi", "Tekka maki", "Hosomaki Mix", "California rolls", "Seattle rolls", "Spicy Tuna rolls", "Ebi rolls", "Chicken Teriyaki", "Salmon Teriyaki", "Gohan", "Tori Katsu", "Yaki Udon"];
+            endlessScroll: true
+        })
+          .kendoTouch({
+              filter: ">li",
+              enableSwipe: true,
+              touchstart: touchstart,
+              tap: fn_navigate,
+              swipe: swipe
+          });
         
-        //$("#flat-listview").kendoMobileListView({ dataSource: flatData });
+        function fn_navigate(e) {
+            var itemUID = $(e.touch.currentTarget).data("uid");
+            kendo.mobile.application.navigate("#edit-detailview?uid=" + itemUID);
+        }
 
-        //$("#grouped-listview").kendoMobileListView({
-        //    dataSource: kendo.data.DataSource.create({ data: groupedData, group: "letter" }),
-        //    template: "${name}",
-        //    fixedHeaders: true
-        //});
+        function swipe(e) {
+            var button = kendo.fx($(e.touch.currentTarget).find("[data-role=button]"));
+            button.expand().duration(200).play();
+        }
 
+        function touchstart(e) {
+            var target = $(e.touch.initialTouch),
+                listview = $("#sample-listview").data("kendoMobileListView"),
+                model,
+                button = $(e.touch.target).find("[data-role=button]:visible");
 
+            if (target.closest("[data-role=button]")[0]) {
+                model = sample_listviewMS.Kendo_DataSource.getByUid($(e.touch.target).attr("data-uid"));
+                sample_listviewMS.Kendo_DataSource.remove(model);
 
+                //prevent `swipe`
+                this.events.cancel();
+                e.event.stopPropagation();
+            } else if (button[0]) {
+                button.hide();
+                //prevent `swipe`
+                this.events.cancel();
+            } else {
+                listview.items().find("[data-role=button]:visible").hide();
+            }
+        }
+
+    },
+    fn_init_detail: function (e) {
+        var view = e.view;
+        view.element.find("#done").data("kendoMobileButton").bind("click", function () {
+            sample_listviewMS.Kendo_DataSource.one("change", function () {
+                view.loader.hide();
+                kendo.mobile.application.navigate("#:back");
+            });
+
+            view.loader.show();
+            sample_listviewMS.Kendo_DataSource.sync();
+        });
+
+        view.element.find("#cancel").data("kendoMobileBackButton").bind("click", function (e) {
+            e.preventDefault();
+            sample_listviewMS.Kendo_DataSource.one("change", function () {
+                view.loader.hide();
+                kendo.mobile.application.navigate("#:back");
+            });
+
+            view.loader.show();
+            sample_listviewMS.Kendo_DataSource.cancelChanges();
+        });
+    },
+    fn_show_detail: function (e) {
+      
+        var model = sample_listviewMS.Kendo_DataSource.getByUid(e.view.params.uid);
+        kendo.bind(e.view.element, model, kendo.mobile.ui);
     }
 });

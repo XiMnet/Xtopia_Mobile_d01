@@ -1,21 +1,3 @@
-////START - config
-var _str_url = "";
-
-_str_url = "http://develop.alchemedia-01.ximnet.my/XTOPIA/dev/xtopia_platform_d02/API/";
-//_str_url = "http://xtopia_platform_d02.ximnet.com.my/API/"
-
-var _int_update_location_internal = 5000; //miliseconds to update location to database
-var _int_check_update_internal = 5000; //miliseconds to check if need to update (used in report_crime.js)
-var _int_distance_KM_update_device = 5; // how many KM to update device on a new reported crime
-var _int_to_update_device = 0; // to update device crime display or not
-
-var _user_email = "huisheng@ximnet.com.my"; //store user email, temporary use my email, later change to FB email
-var _user_ID = "123456"; //store user ID, temporary use 123456, later change to FB ID
-var _food_photo_width = 1024; //resize food photo to this width
-var _food_photo_height = 1024; //resize food photo to this height
-var _food_photo_quality = 80; //compress food photo to this quality
-
-
 var appMS = kendo.observable({
     fn_init: function (e) {
 
@@ -37,7 +19,7 @@ var appMS = kendo.observable({
             });
 
             //set up a test device object when in web browser
-            var str_test_string = '13-11a';
+            var str_test_string = '324';
             mobileMS.device_uuid = 'test ' + str_test_string;
             mobileMS.device_name = 'Name test ' + str_test_string;
             mobileMS.device_phonegap = 'Phonegap test ' + str_test_string;
@@ -93,7 +75,7 @@ var appMS = kendo.observable({
 
         //update the device information
         mobileMS.fn_mobileMS_update();
-
+        
     }
 });
 
